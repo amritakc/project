@@ -1,0 +1,50 @@
+<a href= '/shoes'>Go to all Products</a>
+
+<h2>Hi <%= @user.name %>!</h2>
+
+<h4>Sell Product</h4>
+<form action = '/create_product' method = 'post'>
+	<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+	Name:<input type = 'text' name = 'prod'><br>
+	Amount:<input type = 'text' name = 'amt'><br>
+	<input type = 'submit' value = 'Sell'>
+</form>
+
+
+
+<h4>Your products that are not yet sold:</h4>
+
+<table style = "width:80%">
+	<tr>
+	    <th>Product</th>
+	    <th colspan="3">Date Posted</th>		
+	    <th >Amount</th>
+	    <th>Action</th>
+  	</tr>
+<% @product_all.each do |x| %>
+	<tr>
+		<td><%= x.prod %></td>
+		<td><%= x.created_at %></td>
+		<td>$<%= x.amt %></td>
+		<td><a href ='/destroy_product/<%= x.id %>' data-method='delete'>Remove</a></td>
+	</tr>
+<% end %>
+</table> 
+<h4>Sales</h4>
+
+
+
+
+<h4>Purchases</h4>
+
+<table style = "width:80%">
+	<tr>
+	    <th>Product</th>
+	    <th colspan="3">Date Bought</th>		
+	    <th >Seller</th>
+	    <th>Amount</th>
+  	</tr>
+</table> 
+
+
+

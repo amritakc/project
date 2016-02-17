@@ -1,0 +1,24 @@
+<br>
+<a href= '/dashboard/<%= @user.id %>'>Go to all Dashboard</a>
+<h2>Hi <%= @user.name %>!</h2>
+<h2>All Products</h2>
+
+<table style = "width:80%">
+	<tr>
+	    <th>Product</th>
+	    <th>Seller</th>	
+	    <th>Date Posted</th>	
+	    <th>Amount</th>
+	    <th>Action</th>
+  	</tr>
+  	<% @products.each do |x| %>
+	<tr>
+		<td><%= x.prod %></td>
+		<td><%= x.name %><%= x.last %></td>
+		<td>$<%= x.created_at %></td>
+		<td>$<%= x.amt %></td>
+		<td><a href ='/purchase/<%= x.product_id %>'>Buy</a></td>
+	</tr>
+	<% end %>
+
+</table

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	has_many :products
 	has_many :purchases
+	  has_many :purchased_products, through: :purchases, source: :product
 
     has_secure_password
 	validates_confirmation_of :password

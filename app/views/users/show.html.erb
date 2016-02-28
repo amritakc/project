@@ -32,8 +32,25 @@
 </table> 
 <h4>Sales</h4>
 
-
-
+<table style = "width:80%">
+	<tr>
+	    <th>Product</th>
+	    <th colspan="3">Date Bought</th>		
+	    <th>Buyer</th>
+	    <th>Amount</th>
+  	</tr>
+  <% if @sales %>
+<% @sales.each do |s| %>
+	<tr>
+		<td><%= s.prod %></td>
+		<td><%= s.created_at %></td>
+		<td><%= User.find(s).name %></td>
+		<td>$<%= s.amt %></td>
+	</tr>
+<% end %>
+</table> 
+<%end%>
+<p>Total Sales: <%= @total_sales%>
 
 <h4>Purchases</h4>
 
@@ -44,7 +61,16 @@
 	    <th >Seller</th>
 	    <th>Amount</th>
   	</tr>
+  	<% @purchases.each do |p| %>
+  	<tr>
+	    <th><%= p.prod %></th>
+	    <th><%= p.created_at %></th>		
+	   <th><%= User.find(p.user.id).name %></th>
+	 <th><%= p.amt %></th>
+  	</tr>
+  	<% end %>
 </table> 
+<p>Total purchases: <%= @total_purch %>
 
 
 

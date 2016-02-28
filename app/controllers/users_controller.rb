@@ -31,27 +31,35 @@ class UsersController < ApplicationController
 
 	def create_product
 		@user = User.find(session[:user_id])
-		@product = Product.create(prod:params[:prod], amt:params[:amt], user:User.find(session[:user_id]))
+		@product = Product.create(prod:params[:prod], amt:params[:amt], user:User.find(session[:user_id]), sold: 'f')
 		@product_all = Product.where(user:User.find(session[:user_id]))
 		redirect_to '/dashboard/%d' % @user.id
 	end
 
 	def create_purchase
 		@purchase = Purchase.create(product:Product.find(params[:id]), user:User.find(session[:user_id]))
+		Product.find(params[:id]).update_attribute(:sold, 't')
 		redirect_to '/dashboard/%d' % session[:user_id]
 	end
 
 	def show
 		@user = User.find(session[:user_id])
 		@product_all = Product.where(user:User.find(session[:user_id]))
+		@sales = Product.where(sold:'t', user:User.find(session[:user_id]))
+		@total_sales = @sales.sum(:amt)
+		@purchases = User.find(session[:user_id]).purchased_products
+		@total_purch = @purchases.sum(:amt)
+
 		# @purch = Purchase.joins(:user).joins(:product).select('products.prod,purchases.created_at,products.user_id as products_user_id,users.name, products.amt, purchases.user_id as seller_id').where(user:User.find(session[:user_id]))
-		# render :text => @purch.name
+		# render :text => @purch
 	end
 
 	def show_all
 		@user = User.find(session[:user_id])
-		@products = Product.joins(:user).select('products.id as product_id, users.name, users.last,products.prod, products.amt,products.created_at')
-		@product = Product.all
+		@user2 = User.select('id, name').find(current_user.id)
+		# @purchase = Purchase.where(user:User.find(session[:user_id]))
+		# @products = Product.joins(:user).select('products.id as product_id, users.name, users.last,products.prod, products.amt,products.created_at')
+		@product = Product.where(sold:'f')
 	end
 
 

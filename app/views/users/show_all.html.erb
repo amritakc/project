@@ -11,13 +11,13 @@
 	    <th>Amount</th>
 	    <th>Action</th>
   	</tr>
-  	<% @products.each do |x| %>
+  	<% @product.each do |x| %>
 	<tr>
 		<td><%= x.prod %></td>
-		<td><%= x.name %><%= x.last %></td>
+		<td><%= User.find(x.user.id).name %> <%= User.find(x.user.id).last %></td>
 		<td>$<%= x.created_at %></td>
 		<td>$<%= x.amt %></td>
-		<td><a href ='/purchase/<%= x.product_id %>'>Buy</a></td>
+		<td><a href ='/purchase/<%= x.id %>'>Buy</a></td>
 	</tr>
 	<% end %>
 

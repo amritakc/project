@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160217183118) do
   create_table "products", force: true do |t|
     t.string   "prod"
     t.float    "amt"
+    t.string   "sold"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
